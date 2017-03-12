@@ -1,0 +1,3 @@
+#! /bin/bash
+
+firefox --new-tab https://www.digitalocean.com/community/tutorials/how-to-import-and-export-databases-and-reset-a-root-password-in-mysql
