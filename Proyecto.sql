@@ -23,10 +23,10 @@ DROP TABLE IF EXISTS `Enterprise`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Enterprise` (
-  `id` varchar(20) NOT NULL,
+  `id_ent` varchar(20) NOT NULL,
   `name` varchar(50) NOT NULL,
   `fechaRec` date NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id_ent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-14 20:49:04
+-- Dump completed on 2017-03-14 21:46:19
