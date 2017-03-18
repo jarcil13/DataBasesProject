@@ -176,6 +176,30 @@ LOCK TABLES `Gas` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Internet`
+--
+
+DROP TABLE IF EXISTS `Internet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Internet` (
+  `id_int` varchar(30) NOT NULL,
+  `velocidad` smallint(6) NOT NULL,
+  PRIMARY KEY (`id_int`),
+  CONSTRAINT `Internet_ibfk_1` FOREIGN KEY (`id_int`) REFERENCES `Comunicaciones` (`id_com`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Internet`
+--
+
+LOCK TABLES `Internet` WRITE;
+/*!40000 ALTER TABLE `Internet` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Internet` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Organizacion`
 --
 
@@ -254,6 +278,55 @@ LOCK TABLES `Servicio` WRITE;
 /*!40000 ALTER TABLE `Servicio` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Servicio` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `Telefonia`
+--
+
+DROP TABLE IF EXISTS `Telefonia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Telefonia` (
+  `id_telf` varchar(30) NOT NULL,
+  `capacidad_telf` smallint(6) NOT NULL,
+  `internacionalidad_telf` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id_telf`),
+  CONSTRAINT `Telefonia_ibfk_1` FOREIGN KEY (`id_telf`) REFERENCES `Comunicaciones` (`id_com`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Telefonia`
+--
+
+LOCK TABLES `Telefonia` WRITE;
+/*!40000 ALTER TABLE `Telefonia` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Telefonia` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Television`
+--
+
+DROP TABLE IF EXISTS `Television`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Television` (
+  `id_tel` varchar(30) NOT NULL,
+  `numeroCanales_tel` smallint(6) NOT NULL,
+  PRIMARY KEY (`id_tel`),
+  CONSTRAINT `Television_ibfk_1` FOREIGN KEY (`id_tel`) REFERENCES `Comunicaciones` (`id_com`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Television`
+--
+
+LOCK TABLES `Television` WRITE;
+/*!40000 ALTER TABLE `Television` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Television` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -264,4 +337,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-17 11:59:10
+-- Dump completed on 2017-03-17 22:10:22
