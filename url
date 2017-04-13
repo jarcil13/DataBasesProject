@@ -3,3 +3,5 @@
 firefox --new-tab https://www.digitalocean.com/community/tutorials/how-to-import-and-export-databases-and-reset-a-root-password-in-mysql
 
 firefox --new-tab http://stackoverflow.com/questions/20269351/model-a-isa-relation-in-mysql-with-foreign-keys
+
+firefox --new-tab http://rogerdudler.github.io/git-guide/
