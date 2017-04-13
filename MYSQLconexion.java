@@ -14,13 +14,7 @@ class Conexion{
            try{ 
            Class.forName("com.mysql.jdbc.Driver").newInstance();
            con = DriverManager.getConnection(sURL,"root","chana1234");
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-            System.exit(1);
-        }
-
-        try (PreparedStatement stmt = con.prepareStatement("SELECT first_name FROM actor")) {
+           PreparedStatement stmt = con.prepareStatement("SELECT first_name FROM actor")) {
           ResultSet rs = stmt.executeQuery();
  
          while (rs.next())
@@ -29,6 +23,6 @@ class Conexion{
         } 
         catch (SQLException sqle) { 
         System.out.println("Error en la ejecución:" + sqle.getErrorCode() + " " + sqle.getMessage());    
-}
+        }
     }
 }
