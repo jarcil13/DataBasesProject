@@ -14,15 +14,15 @@ class Conexion{
            try{ 
            Class.forName("com.mysql.jdbc.Driver").newInstance();
            con = DriverManager.getConnection(sURL,"root","chana1234");
-           PreparedStatement stmt = con.prepareStatement("SELECT first_name FROM actor")) {
-          ResultSet rs = stmt.executeQuery();
+           PreparedStatement stmt = con.prepareStatement("SELECT first_name FROM actor");
+            ResultSet rs = stmt.executeQuery();
  
          while (rs.next())
          System.out.println (rs.getString("first_name"));
  
-        } 
-        catch (SQLException sqle) { 
-        System.out.println("Error en la ejecución:" + sqle.getErrorCode() + " " + sqle.getMessage());    
+        }
+        catch (Exception sqle ) { 
+        //System.out.println("Error en la ejecución:" + sqle.getErrorCode() + " " + sqle.getMessage());    
         }
     }
 }
