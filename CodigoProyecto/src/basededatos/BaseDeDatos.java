@@ -22,7 +22,7 @@ public class BaseDeDatos extends JFrame {
        
     //implementar conexion a mysql
     public BaseDeDatos() {
-        String sURL = "jdbc:mysql://localhost:3306/sakila";
+        String sURL = "jdbc:mysql://localhost:3306/clase1";
          try {
              Class.forName("com.mysql.jdbc.Driver").newInstance();
          } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
@@ -37,5 +37,9 @@ public class BaseDeDatos extends JFrame {
     
     public ResultSet peticion(String consulta) throws SQLException{ 
          return con.prepareStatement(consulta).executeQuery();
-    }        
+    }    
+    
+    public boolean update(String consulta) throws SQLException{
+         return con.prepareStatement(consulta).execute();
+    }
 }

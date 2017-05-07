@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.*;
 import java.io.FileWriter;
+import java.sql.ResultSet;
 
 /**
  *
@@ -27,10 +28,9 @@ public class LoadPDFMysql extends BaseDeDatos{
     
     public void go(){
         try {
-            this.peticion("");
-            //this.peticion("INSERT INTO pet VALUES ('Puffball','Diane','hamster','f','1999-03-30',NULL");
+            this.update("INSERT INTO persona VALUES ('3','Wendy','estofuecon','lainterfaz')");
             for(String a: PDF){
-                System.out.println(a);
+              //  System.out.println(a);
             }
             // todos los carga de data
             
