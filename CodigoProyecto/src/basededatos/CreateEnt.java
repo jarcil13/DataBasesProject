@@ -7,7 +7,14 @@ package basededatos;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.PDF;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -17,6 +24,7 @@ public class CreateEnt extends BaseDeDatos {
 
     private static String user;
     private String path;
+    private File PDF;
     /**
      * Creates new form CreateEnt
      */
@@ -112,11 +120,20 @@ public class CreateEnt extends BaseDeDatos {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCargarActionPerformed
+       try{
         // Aqui se hace la lectura de PDF
-        try{
+        Reader lectura = new Reader(PDF);
+        // se manda el read par
+        LoadPDFMysql loader = new LoadPDFMysql(lectura);
+       
+        //Cargal a informacion a Mysql
+        loader.go();
+        
         }
-        catch(Exception e){ // mostrar dialogo de realizado o no realizado
-
+        catch(IOException e){ // mostrar dialogo de realizado o no realizado
+            
+        } catch (TikaException | SAXException ex) {
+            Logger.getLogger(CreateEnt.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bCargarActionPerformed
 

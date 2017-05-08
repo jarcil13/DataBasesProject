@@ -182,7 +182,6 @@ public class LoadPDFMysql extends BaseDeDatos{
             //this.update("INSERT INTO Const_energy VALUES ('"+ id_const_energy+"','0')");
             //Creacon del id del const_aqueduct
             String id_const_aqueduct = auto(12);
-            System.out.println(id_const_aqueduct);
             //hacer carga de const_aqueduct
             this.update("Const_aqueduct","'" + id_const_aqueduct + "','" + aqueduct_fixed_charge + "'");
             
