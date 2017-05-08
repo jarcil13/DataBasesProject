@@ -80,14 +80,9 @@ public class Reader1 {
        //  System.out.println(name+ " : " + metadata.get(name));
       //}
    }
-
-<<<<<<< HEAD
-   public static void aux(String[] palabrasFinal) throws FileNotFoundException, IOException {
-    PrintStream ps = new PrintStream(new FileOutputStream("fac12.txt"));
-=======
+  
    public static void aux(String[] palabrasFinal) throws FileNotFoundException {
     PrintStream ps = new PrintStream(new FileOutputStream("factura.txt"));
->>>>>>> 0567f9744e5eb7b134d0a3fdda9a7c424c992dbe
       System.setOut(ps);
       int length = palabrasFinal.length;
 
@@ -234,8 +229,8 @@ public class Reader1 {
         
       }
       
-      String line32 = Files.readAllLines(Paths.get("/home/mariaarango/Documents/University/3rdSemester/BasesDeDatos/DataBasesProject/CodigoProyecto/fac12.txt")).get(10);
-      System.out.println(line32);
+      //String line32 = Files.readAllLines(Paths.get("/home/mariaarango/Documents/University/3rdSemester/BasesDeDatos/DataBasesProject/CodigoProyecto/fac12.txt")).get(10);
+      //System.out.println(line32);
    }
    
 }
