@@ -80,7 +80,7 @@ public class Reader1 {
    }
 
    public static void aux(String[] palabrasFinal) throws FileNotFoundException {
-    PrintStream ps = new PrintStream(new FileOutputStream("fac12.txt"));
+    PrintStream ps = new PrintStream(new FileOutputStream("factura.txt"));
       System.setOut(ps);
       int length = palabrasFinal.length;
 
@@ -227,19 +227,5 @@ public class Reader1 {
         
       }
    }
-   //WENDY !! NO !! 
-    public static void main2(final String[] args) throws IOException, SAXException,TikaException {
    
-      //Scanner scanner = new Scanner(System.in);
-      //System.out.println("enter path of your file");
-      String filepath = "";
-   
-      //creating the file object		        
-      File file = new File(filepath); 
-   
-      //using tika facade
-      Tika tika = new Tika();
-      String filecontent = tika.parseToString(file);
-      System.out.println("Extracted Content: " + filecontent);
-  }
 }
