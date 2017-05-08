@@ -23,7 +23,7 @@ import org.xml.sax.SAXException;
  */
 public class Reader {
     private File PDF;
-    private String[] tokens;
+    private String[] ready;
     
     public Reader(File PDF) throws IOException, TikaException, FileNotFoundException, SAXException{
         this.PDF = PDF;
@@ -62,19 +62,11 @@ public class Reader {
         String[] palabrasFinal = new String[indicepal];
         System.arraycopy(palabras, 0, palabrasFinal, 0, indicepal); //Copia rara sin null de Netbeans
         
-        tokens = palabrasFinal;
-      
-       
-        for(int i = 0; i<palabrasFinal.length; i++){
-            if(palabrasFinal[i].equals("Referente") && palabrasFinal[i+1].equals("de")
-               && palabrasFinal[i+2].equals("pago:")) {
-                System.out.println("numero: " + palabrasFinal[i+3] + " en la linea " + i );
-            }
-        }
+        ready = palabrasFinal;
     }
     
-    public String[] getPDF(){
-       return tokens;
+    public String[] getPDF(){     
+       return ready;
     }
    
     public File getFile(){ return PDF; }

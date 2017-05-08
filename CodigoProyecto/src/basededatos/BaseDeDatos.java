@@ -39,7 +39,7 @@ public class BaseDeDatos extends JFrame {
          return con.prepareStatement(consulta).executeQuery();
     }    
     
-    public boolean update(String consulta) throws SQLException{
-         return con.prepareStatement(consulta).execute();
+    public boolean update(String tabla, String consulta) throws SQLException{
+         return con.prepareStatement("INSERT INTO " +tabla + " VALUES(" + consulta+")").execute();
     }
 }
