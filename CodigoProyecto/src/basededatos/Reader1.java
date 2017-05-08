@@ -13,6 +13,8 @@ import java.io.IOException;
 import org.apache.tika.Tika;
 import java.io.PrintStream;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
@@ -57,7 +59,7 @@ public class Reader1 {
       System.arraycopy(palabras, 0, palabrasFinal, 0, indicepal); //Copia rara sin null de Netbeans
       
       aux(palabrasFinal);
-       
+        
        /**
       int i= 0;
        while(palabras[i] != null){
@@ -79,7 +81,7 @@ public class Reader1 {
       //}
    }
 
-   public static void aux(String[] palabrasFinal) throws FileNotFoundException {
+   public static void aux(String[] palabrasFinal) throws FileNotFoundException, IOException {
     PrintStream ps = new PrintStream(new FileOutputStream("fac12.txt"));
       System.setOut(ps);
       int length = palabrasFinal.length;
@@ -226,6 +228,9 @@ public class Reader1 {
         }
         
       }
+      
+      String line32 = Files.readAllLines(Paths.get("/home/mariaarango/Documents/University/3rdSemester/BasesDeDatos/DataBasesProject/CodigoProyecto/fac12.txt")).get(10);
+      System.out.println(line32);
    }
    //WENDY !! NO !! 
     public static void main2(final String[] args) throws IOException, SAXException,TikaException {
