@@ -60,7 +60,7 @@ public class LoadPDFMysql extends BaseDeDatos{
             String UC_gas  = null;
             String total_gas  = null;
             
-            FileReader in = new FileReader("/home/juan/Universidad/BasesDeDatos/DataBasesProject/CodigoProyecto/factura.txt");
+            FileReader in = new FileReader("factura.txt");
             BufferedReader br = new BufferedReader(in);
             String x = br.readLine();
             int cont = 0;
@@ -114,7 +114,7 @@ public class LoadPDFMysql extends BaseDeDatos{
                     break;
                     
                    case 12:
-                       UC_alcantarillado = x.substring(30);
+                       UC_alcantarillado = x.substring(30, length -1);
                     break;
                     
                    case 13:
@@ -162,7 +162,7 @@ public class LoadPDFMysql extends BaseDeDatos{
                     break;
                     
                    case 24:
-                       UC_gas = x.substring(19);
+                       UC_gas = x.substring(19, length -1);
                     break;
                     
                    case 25:
@@ -178,7 +178,7 @@ public class LoadPDFMysql extends BaseDeDatos{
             String id_const_energy = auto(11);
             System.out.println(id_const_energy);
             //Ingreso de Cons_energy
-            this.update("persona","'8765','gfdfds','tt','qwerty'");
+            this.update("persona","'9876','vbn','reedgf','jfgdg'");
             //this.update("INSERT INTO Const_energy VALUES ('"+ id_const_energy+"','0')");
             //Creacon del id del const_aqueduct
             String id_const_aqueduct = auto(12);
