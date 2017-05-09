@@ -5,6 +5,7 @@
  */
 package basededatos;
 
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,6 +32,7 @@ public class SignUp extends BaseDeDatos {
             date.setVisible(true);
             address.setVisible(false);
             activity.setVisible(false);
+            yearFormat.setVisible(true);
             //recorlectar datos y enviar a la base de datos
             
         } else{
@@ -38,6 +40,7 @@ public class SignUp extends BaseDeDatos {
             date.setVisible(false);
             address.setVisible(true);
             activity.setVisible(true);
+            yearFormat.setVisible(false);
         }
      
     }
@@ -61,6 +64,7 @@ public class SignUp extends BaseDeDatos {
         address = new javax.swing.JLabel();
         activity = new javax.swing.JLabel();
         lDateActivity = new javax.swing.JTextField();
+        yearFormat = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,6 +113,9 @@ public class SignUp extends BaseDeDatos {
 
         lDateActivity.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
+        yearFormat.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        yearFormat.setText("Formato de fecha: YYYY-MM-DD");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,8 +139,9 @@ public class SignUp extends BaseDeDatos {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(date)
                                     .addGap(18, 18, 18)
-                                    .addComponent(activity))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(activity)))
+                            .addComponent(lDateActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 67, Short.MAX_VALUE)))
                 .addGap(78, 78, 78))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,9 +156,9 @@ public class SignUp extends BaseDeDatos {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(3, 190, Short.MAX_VALUE)
-                .addComponent(lDateActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(182, 182, 182))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(yearFormat)
+                .addGap(116, 116, 116))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +181,9 @@ public class SignUp extends BaseDeDatos {
                     .addComponent(activity))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lDateActivity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(yearFormat)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(toReturn1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(goOn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -184,37 +194,52 @@ public class SignUp extends BaseDeDatos {
     }// </editor-fold>//GEN-END:initComponents
 
     private void goOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goOnActionPerformed
-        if(!(new String(password.getPassword()).equals(auxPass)) && auxItem == 1) {
-            JOptionPane.showMessageDialog(null,
-                "La identificación que ha ingresado es diferente",
-                "Error Message",
-                JOptionPane.ERROR_MESSAGE);
-        } else if(!(new String(password.getPassword()).equals(auxPass)) && auxItem == 2) {
-            JOptionPane.showMessageDialog(null,
-                "Ingresó un contrato diferente al que digitó anteriormente",
-                "Error Message",
-                JOptionPane.ERROR_MESSAGE);
-        }
-        
-        if(auxItem == 1 && lDateActivity.getText().length() == 0) {
-            JOptionPane.showMessageDialog(null,
-                "Debe indicar cuáles servicios presta su empresa",
-                "Error Message",
-                JOptionPane.ERROR_MESSAGE);
-        } else if(auxItem == 2 &&  lDateActivity.getText().length() == 0) {
-            JOptionPane.showMessageDialog(null,
-                "Debe indicar si el contrato pertenece a una casa o una empresa",
-                "Error Message",
-                JOptionPane.ERROR_MESSAGE);
-        } else {
-            if(new String(password.getPassword()).equals(auxPass)){
+        try {
+            if(!(new String(password.getPassword()).equals(auxPass)) && auxItem == 1) {
                 JOptionPane.showMessageDialog(null,
-                    "La información se ha guardado exitosamente",
+                    "La identificación que ha ingresado es diferente",
+                    "Error Message",
+                    JOptionPane.ERROR_MESSAGE);
+            } else if(!(new String(password.getPassword()).equals(auxPass)) && auxItem == 2) {
+                JOptionPane.showMessageDialog(null,
+                    "Ingresó un contrato diferente al que digitó anteriormente",
+                    "Error Message",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        
+            if(auxItem == 1 && lDateActivity.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null,
+                    "Debe indicar cuáles servicios presta su empresa",
+                    "Error Message",
+                    JOptionPane.ERROR_MESSAGE);
+            } else if(auxItem == 2 &&  lDateActivity.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null,
+                    "Debe indicar si el contrato pertenece a una casa o una empresa",
+                    "Error Message",
+                    JOptionPane.ERROR_MESSAGE);
+            } else {
+                if(new String(password.getPassword()).equals(auxPass)){
+                    if(auxItem == 1) this.update("Enterprise", ("'" + auxPass + "', '" + lNameAddress.getText() + "', '" + lDateActivity.getText()) + "'");
+                    
+                    if(auxItem == 2) this.update("Organization", ("'" + auxPass + "', '" + lNameAddress.getText() + "', '" + lDateActivity.getText()) + "'");
+                    
+                    JOptionPane.showMessageDialog(null,
+                        "La información se ha guardado exitosamente",
+                        "",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    Inicio in = new Inicio();
+                    this.setVisible(false);
+                    in.setVisible(true);
+                }
+            }
+        } catch(SQLException e) {
+            System.out.println("Error en la ejecución:" 
+            + e.getErrorCode() + " " + e.getMessage());
+            if(e.getMessage().equals("Duplicate entry '1' for key 'PRIMARY'")) {
+                JOptionPane.showMessageDialog(null,
+                    "Usted ya está registrado en el sistema",
                     "",
-                    JOptionPane.INFORMATION_MESSAGE);
-                Inicio in = new Inicio();
-                this.setVisible(false);
-                in.setVisible(true);
+                    JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_goOnActionPerformed
@@ -277,5 +302,6 @@ public class SignUp extends BaseDeDatos {
     private javax.swing.JLabel name;
     private javax.swing.JPasswordField password;
     private javax.swing.JButton toReturn1;
+    private javax.swing.JLabel yearFormat;
     // End of variables declaration//GEN-END:variables
 }

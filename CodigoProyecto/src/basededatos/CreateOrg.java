@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import org.apache.tika.*;
 import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
@@ -46,6 +47,9 @@ public class CreateOrg extends BaseDeDatos {
         Bpath = new javax.swing.JButton();
         bCargar = new javax.swing.JButton();
         this.setVisible(false);
+        enterprise = new javax.swing.JComboBox<>();
+        getBack = new javax.swing.JButton();
+        search = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,42 +79,74 @@ public class CreateOrg extends BaseDeDatos {
             }
         });
 
+        enterprise.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        enterprise.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione la empresa", "EPM", "UNE" }));
+
+        getBack.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        getBack.setText("Regresar");
+        getBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getBackActionPerformed(evt);
+            }
+        });
+
+        search.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        search.setText("Consultar");
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jLabel2))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(78, 78, 78)
-                            .addComponent(jLabel3))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(145, 145, 145)
-                            .addComponent(Bpath))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(163, 163, 163)
-                            .addComponent(bCargar))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(getBack)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(search))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(233, 233, 233)
+                        .addComponent(enterprise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(Bpath))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(186, 186, 186)
+                        .addComponent(bCargar)))
+                .addGap(45, 45, 45))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jStatus)
-                .addGap(47, 47, 47)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jStatus)
+                    .addComponent(enterprise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(Bpath)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(bCargar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(getBack)
+                    .addComponent(search))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -138,20 +174,47 @@ public class CreateOrg extends BaseDeDatos {
     }//GEN-LAST:event_BpathActionPerformed
 
     private void bCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCargarActionPerformed
-       try{
-        // Aqui se hace la lectura de PDF
-        Reader lectura = new Reader(PDF);
-        // se manda el read par
-        LoadPDFMysql loader = new LoadPDFMysql(lectura);
-       
-        //Cargal a informacion a Mysql
-        loader.go();
+        if(enterprise.getSelectedIndex() != 0) {
+            if(enterprise.getSelectedIndex() == 1) {
+                //Uno para EPM
+                this.setActualEnterprise(1);
+            } else {
+                //Dos para UNE
+                this.setActualEnterprise(2);
+            }
         
-        }
-        catch(IOException | TikaException | SAXException e){ // mostrar dialogo de realizado o no realizado
+            try{
+            // Aqui se hace la lectura de PDF
+            Reader lectura = new Reader(PDF);
+            // se manda el read par
+            LoadPDFMysql loader = new LoadPDFMysql(lectura);
+       
+            //Cargal a informacion a Mysql
+            loader.go();
+        
+            }
+            catch(IOException | TikaException | SAXException e){ // mostrar dialogo de realizado o no realizado
             
+            }
+        } else {
+            JOptionPane.showMessageDialog(null,
+                "Debe seleccionar la empresa a la cual pertenece su factura.",
+                "Error Message",
+                JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_bCargarActionPerformed
+
+    private void getBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getBackActionPerformed
+        this.setVisible(false);
+        CentroOrg co = new CentroOrg(user);
+        co.setVisible(true);
+    }//GEN-LAST:event_getBackActionPerformed
+
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        this.setVisible(false);
+        ReadOrg co = new ReadOrg(user);
+        co.setVisible(true);
+    }//GEN-LAST:event_searchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,8 +254,11 @@ public class CreateOrg extends BaseDeDatos {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bpath;
     private javax.swing.JButton bCargar;
+    private javax.swing.JComboBox<String> enterprise;
+    private javax.swing.JButton getBack;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jStatus;
+    private javax.swing.JButton search;
     // End of variables declaration//GEN-END:variables
 }

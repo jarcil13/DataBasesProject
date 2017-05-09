@@ -6,6 +6,8 @@
 package basededatos;
 
 import java.awt.Component;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,7 +48,7 @@ public class Inicio extends BaseDeDatos {
         jLabel1.setText("Bienvenido a su software de manejo de facturas EPM");
 
         bSignIn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        bSignIn.setText("Sign In ");
+        bSignIn.setText("Sign Up");
         bSignIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bSignInActionPerformed(evt);
@@ -122,35 +124,55 @@ public class Inicio extends BaseDeDatos {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSignInActionPerformed
-        //String cb = (String)cbOrgOrEnt.getSelectedItem();
-        if(cbOrgOrEnt.getSelectedIndex() != 0 && password.getPassword().length != 0) {
+        if(cbOrgOrEnt.getSelectedIndex() != 0 && password.getPassword().length != 0) {             
             SignUp si = new SignUp(new String(password.getPassword()), cbOrgOrEnt.getSelectedIndex());
             this.setVisible(false);
-            si.setVisible(true);
+            si.setVisible(true);  
         } else {
             JOptionPane.showMessageDialog(null,
-                "No ha seleccionado si es una organización o una empresa o no ha ingresado una contraseña.",
-                "Error Message",
-                JOptionPane.ERROR_MESSAGE);
+            "Por favor, ingrese si es una empresa o una organización e ingrese una identificación para proceder con el registro.",
+            "Error Message",
+            JOptionPane.ERROR_MESSAGE); 
         }
     }//GEN-LAST:event_bSignInActionPerformed
 
     private void bLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogInActionPerformed
-         if(cbOrgOrEnt.getSelectedIndex() != 0 && password.getPassword().length != 0) {
-            if(cbOrgOrEnt.getSelectedIndex() == 2) {
-                CentroOrg cn = new CentroOrg(new String(password.getPassword()));
-                this.setVisible(false);
-                cn.setVisible(true);
+        try{
+            if(cbOrgOrEnt.getSelectedIndex() != 0 && password.getPassword().length != 0) {
+                if(cbOrgOrEnt.getSelectedIndex() == 2) {
+                    ResultSet x = this.peticion("select contract from Organization where contract = '" + new String(password.getPassword()) + "'");
+                    if(!x.next()) {
+                        JOptionPane.showMessageDialog(null,
+                        "Usted no está registrado en nuestra base de datos. Si desea acceder, haga primero un registro.",
+                        "Error Message",
+                        JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        CentroOrg cn = new CentroOrg(new String(password.getPassword()));
+                        this.setVisible(false);
+                        cn.setVisible(true);
+                    }
+                } else {
+                    ResultSet x = this.peticion("select id_enterprise from Enterprise where id_enterprise = '" + new String(password.getPassword()) + "';");
+                    if(!x.isBeforeFirst()) {
+                        JOptionPane.showMessageDialog(null,
+                        "Usted no está registrado en nuestra base de datos. Si desea acceder, haga primero un registro.",
+                        "Error Message",
+                        JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        CentroEnt ce = new CentroEnt(new String(password.getPassword()));
+                        this.setVisible(false);
+                        ce.setVisible(true);
+                    }
+                }
             } else {
-                CentroEnt ce = new CentroEnt(new String(password.getPassword()));
-                this.setVisible(false);
-                ce.setVisible(true);
+                JOptionPane.showMessageDialog(null,
+                    "No ha seleccionado si es una organización o una empresa o no ha ingresado una contraseña.",
+                    "Error Message",
+                    JOptionPane.ERROR_MESSAGE);
             }
-         } else {
-            JOptionPane.showMessageDialog(null,
-                "No ha seleccionado si es una organización o una empresa o no ha ingresado una contraseña.",
-                "Error Message",
-                JOptionPane.ERROR_MESSAGE);
+        } catch(SQLException e) {
+            System.out.println("Error en la ejecución:" 
+            + e.getErrorCode() + " " + e.getMessage());
         }
     }//GEN-LAST:event_bLogInActionPerformed
 

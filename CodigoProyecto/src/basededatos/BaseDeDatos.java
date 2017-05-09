@@ -19,17 +19,17 @@ import javax.swing.JFrame;
  */
 public class BaseDeDatos extends JFrame {
      private Connection con;
-       
+     private int actualEnterprise;  
     //implementar conexion a mysql
     public BaseDeDatos() {
-        String sURL = "jdbc:mysql://localhost:3306/clase1";
+        String sURL = "jdbc:mysql://localhost:3306/Project";
          try {
              Class.forName("com.mysql.jdbc.Driver").newInstance();
          } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
              Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
          }
          try {
-             con = (Connection) DriverManager.getConnection(sURL,"root","chana1234");
+             con = (Connection) DriverManager.getConnection(sURL,"root","WMac2010*");
          } catch (SQLException ex) {
              Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
          }
@@ -41,5 +41,13 @@ public class BaseDeDatos extends JFrame {
     
     public boolean update(String tabla, String consulta) throws SQLException{
          return con.prepareStatement("INSERT INTO " +tabla + " VALUES(" + consulta+")").execute();
+    }
+    
+    public int getEnterprise(){
+        return this.actualEnterprise;
+    }
+
+    public void setActualEnterprise(int actualEnterprise) {
+        this.actualEnterprise = actualEnterprise;
     }
 }
