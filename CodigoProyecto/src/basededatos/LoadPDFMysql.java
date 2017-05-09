@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import java.io.*;
 import java.io.FileWriter;
 import java.sql.ResultSet;
+import java.util.Random;
 
 /**
  *
@@ -40,7 +41,7 @@ public class LoadPDFMysql extends BaseDeDatos{
             String consumo_alcantarillado  = null;
             String consumo_energia = null;
             String aqueduct_fixed_charge = null;
-            String subsidio_aqueduct;
+            String subsidio_aqueduct = null;
             String UC_aqueduct  = null;
             String total_aqueduct  = null;
             String alcantarillado_fixed_charge  = null;
@@ -59,6 +60,7 @@ public class LoadPDFMysql extends BaseDeDatos{
             String gas_fixed_charge  = null;
             String UC_gas  = null;
             String total_gas  = null;
+            String numeroContrato = null;
             
             FileReader in = new FileReader("factura.txt");
             BufferedReader br = new BufferedReader(in);
@@ -167,24 +169,95 @@ public class LoadPDFMysql extends BaseDeDatos{
                     
                    case 25:
                        total_gas = x.substring(10);
-                    break;       
+                    break; 
+                    
+                   case 26:
+                       numeroContrato = x.substring(18);
+                    break;
                 }
             
                 x = br.readLine();
             }
             br.close();
             
+            //this.update("","");
+            
+            if(this.getEnterprise() == 1){
             //Creacion de id del const_energy
             String id_const_energy = auto(11);
-            System.out.println(id_const_energy);
             //Ingreso de Cons_energy
-            this.update("persona","'9876','vbn','reedgf','jfgdg'");
-            //this.update("INSERT INTO Const_energy VALUES ('"+ id_const_energy+"','0')");
-            //Creacon del id del const_aqueduct
+            this.update("Const_energy", "'"+ id_const_energy+"','0'");
+            
+            
+            //Creacion del id del const_aqueduct
             String id_const_aqueduct = auto(12);
             //hacer carga de const_aqueduct
             this.update("Const_aqueduct","'" + id_const_aqueduct + "','" + aqueduct_fixed_charge + "'");
             
+            //Creacion de id de const_sewerage
+            String id_const_sewereage = auto(13);
+            //hacer carga de const_sewerage
+            this.update("Const_sewerage","'" + id_const_sewereage + "','" + alcantarillado_fixed_charge + "'");
+            
+            //Creacion de id de const_gas
+            String id_const_gas = auto(14);
+            //hacer carga de const_gas
+            this.update("Const_gas","'" + id_const_gas + "','" + gas_fixed_charge + "'");
+            
+            //Creacion de Energy
+            String id_Energy = auto(1);
+            //hacer carga de Energy
+            this.update("Energy","'" + id_Energy + "','" + total_energy + "','" + subsidio_energy 
+                         + "','"+ consumo_energia + "','"+ UC_energy + "','" + id_const_energy +"'");
+            
+            //Creacion de Aqueduct
+            String id_Aqueduct = auto(2);
+            //hacer carga de Aqueduct
+            this.update("Aqueduct", "'" + id_Aqueduct + "','" + total_aqueduct + "','" + subsidio_aqueduct
+                         + "','" + consumo_aqueduct + "','" + UC_aqueduct + "','" + id_const_aqueduct + "'");
+            
+            //Creacion de Sewerage
+            String id_Sewerage = auto(3);
+            //hacer carga de Sewerage
+            this.update("Sewerage","'" + id_Sewerage + "','" + total_alcantarillado + "','" + subsidio_alcantarillado
+                        + "','" + consumo_alcantarillado + "','" + UC_alcantarillado + "','" + id_const_sewereage + "'" );
+            
+            //Creacion de Gas
+            String id_Gas = auto(4);
+            //hacer carga de Gas
+            this.update("Gas", "'" + id_Gas + "','" + total_gas + "','" + "0" 
+                        + "','" + consumo_KWH_gas + "','" + consumo_M3_gas + "','" + difernecia_gas
+                        + "','" + UC_gas + "','" + id_const_gas + "'");
+            
+            this.update("Bill", "'" + numeroContrato + "','" + total_bill + "','" + dias_consumo + "','" + mes + "','" +
+                        contrato + "','" + this.getEnterprise() + "'" + ",NULL,NULL,NULL," +
+                         "'" + id_Energy + "','" + id_Aqueduct + "','" + id_Sewerage + "','" +
+                         id_Gas + "'");
+            }
+            else{
+            //Creacion de Internet 
+            String id_Internet = auto(7);
+            //hacer carga en Internet
+            //this.update("Internet", "'" + id_Internet + "','" + getRandom(5) + "','" + getRandom(40000) + "'");
+            
+            //Creacion de Telephony
+            String id_Telephony = auto(5);
+            // hacer carga de Telefonia
+            //this.update("Telephony", "'" + id_Telephony + "','" + getRandom(100) + "','" + getRandom(20000) + "'");
+            
+            //Creacion de Televicion
+            String id_Television = auto(6);
+            //hacer Carga Television
+            //this.update("Television", "'" + id_Television + "','" + getRandom(1) + "','" + getRandom(15000) + "'");
+            
+            //finalmente hacemos la carga de bill 
+            //this.update("Bill", "'" + auto(15) + "','" + getRandom(100000) + "','" + 
+            //            getRandom(1) + "','" + getRandom(1) + "','" +  contrato + "','" + Integer.toString(this.getEnterprise())
+            //            + "','" + id_Telephony + "','" + id_Television + "','" + id_Internet + "'" 
+            //            + ",NULL,NULL,NULL,NULL");
+            
+            }
+          
             
         }   
         catch (SQLException ex) {
@@ -221,6 +294,8 @@ public class LoadPDFMysql extends BaseDeDatos{
                 return "CS"+number();
             case 14:
                return "CG"+number();
+            case 15:
+               return "UNE"+number();
             default: return "";
         }    
     }
@@ -400,7 +475,19 @@ public class LoadPDFMysql extends BaseDeDatos{
         
       }
       
+      for(int i = 0; i<PDF.length-3; i++){
+          if(PDF[i].equals("Referente") && PDF[i+1].equals("de")
+                   && PDF[i+2].equals("pago:")) {
+              ps.print("\nNumero de cuenta: " + PDF[i+3]);         
+          }
+      }
+      
       ps.close();
+    }
+
+    private String getRandom(int i) {
+       Random rand = new Random();
+       return Integer.toString(rand.nextInt(100000) + i); 
     }
     
     
