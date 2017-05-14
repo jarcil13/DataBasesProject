@@ -21,10 +21,14 @@ public class LoadPDFMysql extends BaseDeDatos{
 
     private String[] PDF;
     int consecutivo;
+    int empresaActual;
+    String user;
     
-    public LoadPDFMysql(Reader read) {
+    public LoadPDFMysql(Reader read, int EA, String u) {
       PDF = read.getPDF();
       consecutivo = getConsecutivo();
+      empresaActual = EA;
+      user = u;
     }
     
     public void go() throws FileNotFoundException, IOException{
@@ -97,14 +101,26 @@ public class LoadPDFMysql extends BaseDeDatos{
                  
                    case 7:
                    subsidio_aqueduct = x.substring(20);
+                   if(subsidio_aqueduct.split(",").length > 1 ){
+                     String[] arr = subsidio_aqueduct.split(",");
+                     subsidio_aqueduct = arr[0] + arr[1];
+                   }
                    break;
                 
                    case 8:
                     UC_aqueduct = x.substring(25, length - 1);
+                    if(UC_aqueduct.split(",").length > 1 ){
+                     String[] arr = UC_aqueduct.split(",");
+                     UC_aqueduct = arr[0] + arr[1];
+                   }
                     break;
                     
                    case 9:
                        total_aqueduct = x.substring(16);
+                    if(total_aqueduct.split(",").length > 1 ){
+                     String[] arr = total_aqueduct.split(",");
+                     total_aqueduct = arr[0] + arr[1];
+                    }
                     break;
                        
                    case 10:
@@ -113,26 +129,50 @@ public class LoadPDFMysql extends BaseDeDatos{
                     
                    case 11:
                        subsidio_alcantarillado = x.substring(25);
+                          if(subsidio_alcantarillado.split(",").length > 1 ){
+                            String[] arr = subsidio_alcantarillado.split(",");
+                            subsidio_alcantarillado = arr[0] + arr[1];
+                         }
                     break;
-                    
+                          
                    case 12:
                        UC_alcantarillado = x.substring(30, length -1);
+                          if(UC_alcantarillado.split(",").length > 1 ){
+                            String[] arr = UC_alcantarillado.split(",");
+                            UC_alcantarillado = arr[0] + arr[1];
+                         }
                     break;
                     
                    case 13:
                        total_alcantarillado = x.substring(21);
+                         if(total_alcantarillado.split(",").length > 1 ){
+                            String[] arr = total_alcantarillado.split(",");
+                            total_alcantarillado = arr[0] + arr[1];
+                         }
                     break;
                     
                    case 14:
                        subsidio_energy = x.substring(18);
+                         if(subsidio_energy.split(",").length > 1 ){
+                            String[] arr = subsidio_energy.split(",");
+                            subsidio_energy = arr[0]+ arr[1];
+                         }
                     break;
                     
                    case 15:
                        UC_energy = x.substring(23,length-1);
+                        if(UC_energy.split(",").length > 1 ){
+                            String[] arr = UC_energy.split(",");
+                            UC_energy = arr[0]+ arr[1];
+                        }
                     break;
                     
                    case 16:
                        total_energy = x.substring(14);
+                       if(total_energy.split(",").length > 1 ){
+                            String[] arr = total_energy.split(",");
+                            total_energy = arr[0]+ arr[1];
+                        }
                     break;
                     
                    case 17:
@@ -141,6 +181,10 @@ public class LoadPDFMysql extends BaseDeDatos{
                     
                    case 18:
                        total_bill = x.substring(15);
+                       if(total_bill.split(",").length > 1 ){
+                            String[] arr = total_bill.split(",");
+                            total_bill = arr[0]+ arr[1];
+                        }
                     break;
                     
                    case 19:
@@ -149,14 +193,26 @@ public class LoadPDFMysql extends BaseDeDatos{
                     
                    case 20:
                        difernecia_gas = x.substring(18);
+                       if(difernecia_gas.split(",").length > 1 ){
+                            String[] arr = difernecia_gas.split(",");
+                            difernecia_gas = arr[0]+ arr[1];
+                        }
                     break;
                     
                    case 21:
                        consumo_M3_gas = x.substring(15);
+                       if(consumo_M3_gas.split(",").length > 1 ){
+                            String[] arr = consumo_M3_gas.split(",");
+                            consumo_M3_gas = arr[0]+ arr[1];
+                        }
                     break;
                     
                    case 22:
                        consumo_KWH_gas = x.substring(16);
+                       if(consumo_KWH_gas.split(",").length > 1 ){
+                            String[] arr = consumo_KWH_gas.split(",");
+                            consumo_KWH_gas = arr[0]+ arr[1];
+                        }
                     break;
                     
                    case 23:
@@ -165,10 +221,18 @@ public class LoadPDFMysql extends BaseDeDatos{
                     
                    case 24:
                        UC_gas = x.substring(19, length -1);
+                       if(UC_gas.split(",").length > 1 ){
+                            String[] arr = UC_gas.split(",");
+                            UC_gas = arr[0]+ arr[1];
+                        }
                     break;
                     
                    case 25:
                        total_gas = x.substring(10);
+                       if(total_gas.split(",").length > 1 ){
+                            String[] arr = total_gas.split(",");
+                            total_gas = arr[0]+ arr[1];
+                        }
                     break; 
                     
                    case 26:
@@ -182,7 +246,8 @@ public class LoadPDFMysql extends BaseDeDatos{
             
             //this.update("","");
             
-            if(this.getEnterprise() == 1){
+            if(empresaActual == 1){
+
             //Creacion de id del const_energy
             String id_const_energy = auto(11);
             //Ingreso de Cons_energy
@@ -202,7 +267,7 @@ public class LoadPDFMysql extends BaseDeDatos{
             //Creacion de id de const_gas
             String id_const_gas = auto(14);
             //hacer carga de const_gas
-            this.update("Const_gas","'" + id_const_gas + "','" + gas_fixed_charge + "'");
+            this.update("Const_gas","'" + id_const_gas + "','" + gas_fixed_charge + "','0.845'");
             
             //Creacion de Energy
             String id_Energy = auto(1);
@@ -228,33 +293,34 @@ public class LoadPDFMysql extends BaseDeDatos{
             this.update("Gas", "'" + id_Gas + "','" + total_gas + "','" + "0" 
                         + "','" + consumo_KWH_gas + "','" + consumo_M3_gas + "','" + difernecia_gas
                         + "','" + UC_gas + "','" + id_const_gas + "'");
-            
+            //hacer bill
             this.update("Bill", "'" + numeroContrato + "','" + total_bill + "','" + dias_consumo + "','" + mes + "','" +
-                        contrato + "','" + this.getEnterprise() + "'" + ",NULL,NULL,NULL," +
+                        contrato + "','" + empresaActual + "'" + ",NULL,NULL,NULL," +
                          "'" + id_Energy + "','" + id_Aqueduct + "','" + id_Sewerage + "','" +
                          id_Gas + "'");
             }
             else{
+  
             //Creacion de Internet 
             String id_Internet = auto(7);
             //hacer carga en Internet
-            //this.update("Internet", "'" + id_Internet + "','" + getRandom(5) + "','" + getRandom(40000) + "'");
+            this.update("Internet", "'" + id_Internet + "','" + getRandom(5) + "','" + getRandom(40000) + "'");
             
             //Creacion de Telephony
             String id_Telephony = auto(5);
             // hacer carga de Telefonia
-            //this.update("Telephony", "'" + id_Telephony + "','" + getRandom(100) + "','" + getRandom(20000) + "'");
+            this.update("Telephony", "'" + id_Telephony + "','" + getRandom(100) + "','" + getRandom(20000) + "'");
             
             //Creacion de Televicion
             String id_Television = auto(6);
             //hacer Carga Television
-            //this.update("Television", "'" + id_Television + "','" + getRandom(1) + "','" + getRandom(15000) + "'");
+            this.update("Television", "'" + id_Television + "','" + getRandom(1) + "','" + getRandom(15000) + "'");
             
             //finalmente hacemos la carga de bill 
-            //this.update("Bill", "'" + auto(15) + "','" + getRandom(100000) + "','" + 
-            //            getRandom(1) + "','" + getRandom(1) + "','" +  contrato + "','" + Integer.toString(this.getEnterprise())
-            //            + "','" + id_Telephony + "','" + id_Television + "','" + id_Internet + "'" 
-            //            + ",NULL,NULL,NULL,NULL");
+            this.update("Bill", "'" + getRandom(30000) + "','" + getRandom(100000) + "','" + 
+                       getRandom(1) + "','" + getRandom(1) + "','" +  user + "','" + empresaActual
+                       + "','" + id_Telephony + "','" + id_Television + "','" + id_Internet + "'" 
+                       + ",NULL,NULL,NULL,NULL");
             
             }
           
@@ -487,7 +553,7 @@ public class LoadPDFMysql extends BaseDeDatos{
 
     private String getRandom(int i) {
        Random rand = new Random();
-       return Integer.toString(rand.nextInt(100000) + i); 
+       return Integer.toString((int)(rand.nextDouble() * 10000+ i)); 
     }
     
     

@@ -30,6 +30,7 @@ public class CreateOrg extends BaseDeDatos {
         initComponents();
         this.user = user;
         bCargar.setVisible(false);
+        jshowStatus.setVisible(false);
     }
 
     /**
@@ -50,6 +51,7 @@ public class CreateOrg extends BaseDeDatos {
         enterprise = new javax.swing.JComboBox<>();
         getBack = new javax.swing.JButton();
         search = new javax.swing.JButton();
+        jshowStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,6 +100,11 @@ public class CreateOrg extends BaseDeDatos {
             }
         });
 
+        jshowStatus.setBackground(new java.awt.Color(0, 0, 0));
+        jshowStatus.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jshowStatus.setForeground(new java.awt.Color(0, 153, 51));
+        jshowStatus.setText("Carga terminada");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,15 +124,21 @@ public class CreateOrg extends BaseDeDatos {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(search))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addComponent(enterprise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addComponent(bPath))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
-                        .addComponent(bCargar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(164, 164, 164)
+                                .addComponent(bPath))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(233, 233, 233)
+                                .addComponent(enterprise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(45, 45, 45))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(186, 186, 186)
+                .addComponent(bCargar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jshowStatus)
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,7 +154,9 @@ public class CreateOrg extends BaseDeDatos {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(bPath)
                 .addGap(18, 18, 18)
-                .addComponent(bCargar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bCargar)
+                    .addComponent(jshowStatus))
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(getBack)
@@ -175,23 +190,25 @@ public class CreateOrg extends BaseDeDatos {
 
     private void bCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCargarActionPerformed
         if(enterprise.getSelectedIndex() != 0) {
+            int empresaActual;
             if(enterprise.getSelectedIndex() == 1) {
                 //Uno para EPM
-                this.setActualEnterprise(1);
+                empresaActual = 1;
             } else {
                 //Dos para UNE
-                this.setActualEnterprise(2);
+                empresaActual = 2;
             }
         
             try{
             // Aqui se hace la lectura de PDF
             Reader lectura = new Reader(PDF);
             // se manda el read par
-            LoadPDFMysql loader = new LoadPDFMysql(lectura);
+            LoadPDFMysql loader = new LoadPDFMysql(lectura, empresaActual, user);
        
             //Cargal a informacion a Mysql
             loader.go();
-        
+            //se muestra label de terminado
+            jshowStatus.setVisible(true);
             }
             catch(IOException | TikaException | SAXException e){ // mostrar dialogo de realizado o no realizado
             
@@ -259,6 +276,7 @@ public class CreateOrg extends BaseDeDatos {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jStatus;
+    private javax.swing.JLabel jshowStatus;
     private javax.swing.JButton search;
     // End of variables declaration//GEN-END:variables
 }

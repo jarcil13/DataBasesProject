@@ -19,17 +19,16 @@ import javax.swing.JFrame;
  */
 public class BaseDeDatos extends JFrame {
      private Connection con;
-     private int actualEnterprise;  
     //implementar conexion a mysql
     public BaseDeDatos() {
-        String sURL = "jdbc:mysql://localhost:3306/Project";
+        String sURL = "jdbc:mysql://localhost:3306/proyecto";
          try {
              Class.forName("com.mysql.jdbc.Driver").newInstance();
          } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
              Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
          }
          try {
-             con = (Connection) DriverManager.getConnection(sURL,"root","chana123");
+             con = (Connection) DriverManager.getConnection(sURL,"root","chana1234");
          } catch (SQLException ex) {
              Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
          }
@@ -40,14 +39,30 @@ public class BaseDeDatos extends JFrame {
     }    
     
     public boolean update(String tabla, String consulta) throws SQLException{
-         return con.prepareStatement("INSERT INTO " +tabla + " VALUES(" + consulta+")").execute();
+      
+        if(tabla.startsWith("Const")){ //verifcamos si vamos hacer un update en un tabla ConsT
+            if(tabla.equals("Const_gas")){
+                if(consulta.split(",").length > 3){
+                String[] arr = consulta.split(",");
+                arr[1] += arr[2];
+                consulta = arr[0] + "," + arr[1] + "," + arr[3]; 
+                }
+            }
+            else if(consulta.split(",").length > 2 ){ //si el numero de "," superna la esperada
+                String[] arr = consulta.split(",");
+                arr[1] += arr[2];
+                consulta = arr[0] + "," + arr[1];
+             }
+        }
+        else if(tabla.startsWith("I") || tabla.startsWith("Tele")){
+            if(consulta.split(",").length > 3) {
+               String[] arr = consulta.split(",");
+                arr[2] += arr[3];
+                consulta = arr[0] + "," + arr[1] + "," + arr[2];
+            }
+        }        
+        return con.prepareStatement("INSERT INTO " +tabla + " VALUES(" + consulta+")").execute();
     }
     
-    public int getEnterprise(){
-        return this.actualEnterprise;
-    }
-
-    public void setActualEnterprise(int actualEnterprise) {
-        this.actualEnterprise = actualEnterprise;
-    }
+  
 }

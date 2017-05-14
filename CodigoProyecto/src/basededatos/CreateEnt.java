@@ -32,6 +32,7 @@ public class CreateEnt extends BaseDeDatos {
         initComponents();
         this.user = user;
         bCargar.setVisible(false);
+        jShowStatus.setVisible(false);
     }
 
     /**
@@ -51,6 +52,7 @@ public class CreateEnt extends BaseDeDatos {
         Bpath = new javax.swing.JButton();
         getBack = new javax.swing.JButton();
         search = new javax.swing.JButton();
+        jShowStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,6 +98,10 @@ public class CreateEnt extends BaseDeDatos {
             }
         });
 
+        jShowStatus.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jShowStatus.setForeground(new java.awt.Color(0, 153, 0));
+        jShowStatus.setText("Carga terminada");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,28 +109,30 @@ public class CreateEnt extends BaseDeDatos {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(getBack)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(search))
-                            .addComponent(jLabel2))))
-                .addContainerGap(58, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(100, 100, 100)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(getBack)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(search))
+                                    .addComponent(jLabel2))))
+                        .addGap(0, 46, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(Bpath)
-                        .addGap(170, 170, 170))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(bCargar)
-                        .addGap(190, 190, 190))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Bpath)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bCargar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jShowStatus)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,12 +142,14 @@ public class CreateEnt extends BaseDeDatos {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jStatus)
-                .addGap(41, 41, 41)
-                .addComponent(Bpath)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bCargar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jStatus)
+                    .addComponent(Bpath))
+                .addGap(80, 80, 80)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bCargar)
+                    .addComponent(jShowStatus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(getBack)
                     .addComponent(search))
@@ -154,11 +164,12 @@ public class CreateEnt extends BaseDeDatos {
         // Aqui se hace la lectura de PDF
         Reader lectura = new Reader(PDF);
         // se manda el read par
-        LoadPDFMysql loader = new LoadPDFMysql(lectura);
+        LoadPDFMysql loader = new LoadPDFMysql(lectura, Integer.parseInt(user), "99999"); // se pone 9999 ya UNE es generado 
+        
        
         //Cargal a informacion a Mysql
         loader.go();
-        
+        jShowStatus.setVisible(true);
         }
         catch(IOException e){ // mostrar dialogo de realizado o no realizado
             
@@ -240,6 +251,7 @@ public class CreateEnt extends BaseDeDatos {
     private javax.swing.JButton getBack;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jShowStatus;
     private javax.swing.JLabel jStatus;
     private javax.swing.JButton search;
     // End of variables declaration//GEN-END:variables
