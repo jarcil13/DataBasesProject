@@ -5,6 +5,8 @@
  */
 package basededatos;
 
+import java.awt.Color;
+
 /**
  *
  * @author María Arango
@@ -18,6 +20,8 @@ public class UpdateEnt extends BaseDeDatos {
     public UpdateEnt(String user) {
         initComponents();
         this.user = user;
+        idLbl.setForeground(Color.BLUE);
+        idLbl.setText(user);
     }
 
     /**
@@ -31,13 +35,13 @@ public class UpdateEnt extends BaseDeDatos {
 
         jTextNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextIdentificacion = new javax.swing.JTextField();
         bupdate = new javax.swing.JButton();
         bback = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jFormattedFecha = new javax.swing.JFormattedTextField();
+        idLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,13 +54,6 @@ public class UpdateEnt extends BaseDeDatos {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Fecha de Recaudo");
-
-        jTextIdentificacion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextIdentificacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextIdentificacionActionPerformed(evt);
-            }
-        });
 
         bupdate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bupdate.setText("Actualizar");
@@ -86,6 +83,8 @@ public class UpdateEnt extends BaseDeDatos {
         jFormattedFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         jFormattedFecha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
+        idLbl.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,11 +107,11 @@ public class UpdateEnt extends BaseDeDatos {
                                 .addGap(0, 11, Short.MAX_VALUE)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextIdentificacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                             .addComponent(bupdate, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jFormattedFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jFormattedFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                            .addComponent(idLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(59, 59, 59))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -123,11 +122,11 @@ public class UpdateEnt extends BaseDeDatos {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(28, 28, 28)
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(idLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -148,10 +147,6 @@ public class UpdateEnt extends BaseDeDatos {
     private void jTextNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNombreActionPerformed
         jTextNombre.setText("");
     }//GEN-LAST:event_jTextNombreActionPerformed
-
-    private void jTextIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIdentificacionActionPerformed
-        jTextIdentificacion.setText("");
-    }//GEN-LAST:event_jTextIdentificacionActionPerformed
 
     private void bupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bupdateActionPerformed
         // actualiza a la base de datos
@@ -202,12 +197,12 @@ public class UpdateEnt extends BaseDeDatos {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bback;
     private javax.swing.JButton bupdate;
+    private javax.swing.JLabel idLbl;
     private javax.swing.JFormattedTextField jFormattedFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextIdentificacion;
     private javax.swing.JTextField jTextNombre;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,8 @@
  */
 package basededatos;
 
+import java.awt.Color;
+
 /**
  *
  * @author María Arango
@@ -17,6 +19,8 @@ public class UpdateOrg extends BaseDeDatos {
     public UpdateOrg(String user) {
         initComponents();
         this.user = user;
+        contractLbl.setForeground(Color.BLUE);
+        contractLbl.setText(user);
         // poner valores actuales de cada uno de los campos en el text field
     }
 
@@ -33,11 +37,11 @@ public class UpdateOrg extends BaseDeDatos {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextContrato = new javax.swing.JTextField();
         jTextDireccion = new javax.swing.JTextField();
         jTextActividad = new javax.swing.JTextField();
         bupdate = new javax.swing.JButton();
         bback = new javax.swing.JButton();
+        contractLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,13 +56,6 @@ public class UpdateOrg extends BaseDeDatos {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Actividad");
-
-        jTextContrato.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextContrato.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextContratoActionPerformed(evt);
-            }
-        });
 
         jTextDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextDireccion.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +87,8 @@ public class UpdateOrg extends BaseDeDatos {
             }
         });
 
+        contractLbl.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,9 +108,9 @@ public class UpdateOrg extends BaseDeDatos {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextDireccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextContrato, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextActividad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bupdate, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(bupdate, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(contractLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(59, 59, 59))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -122,11 +121,11 @@ public class UpdateOrg extends BaseDeDatos {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(28, 28, 28)
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(contractLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -153,10 +152,6 @@ public class UpdateOrg extends BaseDeDatos {
        CentroOrg co = new CentroOrg(user);
        co.setVisible(true);
     }//GEN-LAST:event_bbackActionPerformed
-
-    private void jTextContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextContratoActionPerformed
-        jTextContrato.setText("");
-    }//GEN-LAST:event_jTextContratoActionPerformed
 
     private void jTextDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDireccionActionPerformed
         jTextDireccion.setText("");
@@ -204,12 +199,12 @@ public class UpdateOrg extends BaseDeDatos {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bback;
     private javax.swing.JButton bupdate;
+    private javax.swing.JLabel contractLbl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField jTextActividad;
-    private javax.swing.JTextField jTextContrato;
     private javax.swing.JTextField jTextDireccion;
     // End of variables declaration//GEN-END:variables
 }
