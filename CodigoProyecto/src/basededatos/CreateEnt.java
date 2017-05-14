@@ -31,7 +31,7 @@ public class CreateEnt extends BaseDeDatos {
     public CreateEnt(String user) {
         initComponents();
         this.user = user;
-         bCargar.setVisible(false);
+        bCargar.setVisible(false);
     }
 
     /**
@@ -61,7 +61,7 @@ public class CreateEnt extends BaseDeDatos {
         jLabel2.setText("Ingreso de datos de facturación");
 
         jStatus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jStatus.setForeground(new java.awt.Color(0, 153, 0));
+        jStatus.setForeground(new java.awt.Color(0, 0, 204));
         jStatus.setText("Estado");
 
         bCargar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -176,7 +176,7 @@ public class CreateEnt extends BaseDeDatos {
             String name = selectedFile.getName();
             path = selectedFile.getAbsolutePath();
             if(name.substring(name.length()-4,name.length()).equals(".pdf")){
-               jStatus.setForeground(Color.GREEN);
+               jStatus.setForeground(Color.BLUE);
                 bCargar.setVisible(true);
                 jStatus.setText(name);
             }
