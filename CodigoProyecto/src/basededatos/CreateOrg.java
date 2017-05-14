@@ -44,7 +44,7 @@ public class CreateOrg extends BaseDeDatos {
         jLabel3 = new javax.swing.JLabel();
         jStatus = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Bpath = new javax.swing.JButton();
+        bPath = new javax.swing.JButton();
         bCargar = new javax.swing.JButton();
         this.setVisible(false);
         enterprise = new javax.swing.JComboBox<>();
@@ -57,17 +57,17 @@ public class CreateOrg extends BaseDeDatos {
         jLabel3.setText("Seleccione PDF de la factura");
 
         jStatus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jStatus.setForeground(new java.awt.Color(0, 153, 0));
+        jStatus.setForeground(new java.awt.Color(0, 0, 204));
         jStatus.setText("Estado");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Ingreso de datos de facturación");
 
-        Bpath.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Bpath.setText("Seleccionar");
-        Bpath.addActionListener(new java.awt.event.ActionListener() {
+        bPath.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        bPath.setText("Seleccionar");
+        bPath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BpathActionPerformed(evt);
+                bPathActionPerformed(evt);
             }
         });
 
@@ -121,7 +121,7 @@ public class CreateOrg extends BaseDeDatos {
                         .addComponent(enterprise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(164, 164, 164)
-                        .addComponent(Bpath))
+                        .addComponent(bPath))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(186, 186, 186)
                         .addComponent(bCargar)))
@@ -139,7 +139,7 @@ public class CreateOrg extends BaseDeDatos {
                     .addComponent(jStatus)
                     .addComponent(enterprise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addComponent(Bpath)
+                .addComponent(bPath)
                 .addGap(18, 18, 18)
                 .addComponent(bCargar)
                 .addGap(55, 55, 55)
@@ -152,7 +152,7 @@ public class CreateOrg extends BaseDeDatos {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BpathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpathActionPerformed
+    private void bPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPathActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         int result = fileChooser.showOpenDialog(this);
@@ -162,7 +162,7 @@ public class CreateOrg extends BaseDeDatos {
             String name = selectedFile.getName();
             path = selectedFile.getAbsolutePath();
            if(name.substring(name.length()-4,name.length()).equals(".pdf")){
-               jStatus.setForeground(Color.GREEN);
+               jStatus.setForeground(Color.BLUE);
                bCargar.setVisible(true);
                jStatus.setText(name);
            }
@@ -171,7 +171,7 @@ public class CreateOrg extends BaseDeDatos {
                jStatus.setText("Archivo seleccionado no es PDF");
            }
         }
-    }//GEN-LAST:event_BpathActionPerformed
+    }//GEN-LAST:event_bPathActionPerformed
 
     private void bCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCargarActionPerformed
         if(enterprise.getSelectedIndex() != 0) {
@@ -252,8 +252,8 @@ public class CreateOrg extends BaseDeDatos {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Bpath;
     private javax.swing.JButton bCargar;
+    private javax.swing.JButton bPath;
     private javax.swing.JComboBox<String> enterprise;
     private javax.swing.JButton getBack;
     private javax.swing.JLabel jLabel2;
