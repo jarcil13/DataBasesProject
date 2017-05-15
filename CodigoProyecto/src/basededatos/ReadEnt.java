@@ -5,11 +5,27 @@
  */
 package basededatos;
 
+import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.UnsupportedLookAndFeelException;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.ChartFactory; 
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart; 
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+
 /**
  *
  * @author María Arango
  */
 public class ReadEnt extends BaseDeDatos {
+
     private static String user;
 
     /**
@@ -18,7 +34,17 @@ public class ReadEnt extends BaseDeDatos {
     public ReadEnt(String user) {
         initComponents();
         this.user = user;
+        fullYear();
         setEnable();
+    }
+
+    public void fullYear() {
+        int aux = 1999;
+        for (int i = 0; i < 20; ++i) {
+            year1.addItem(aux);
+            year2.addItem(aux);
+            ++aux;
+        }
     }
 
     /**
@@ -46,14 +72,14 @@ public class ReadEnt extends BaseDeDatos {
         jScrollPane1 = new javax.swing.JScrollPane();
         list = new javax.swing.JList<>();
         lblyear1 = new javax.swing.JLabel();
-        year1 = new javax.swing.JTextField();
         vs = new javax.swing.JLabel();
         boxMonth1 = new javax.swing.JComboBox<>();
         lblmonth1 = new javax.swing.JLabel();
-        year2 = new javax.swing.JTextField();
         lblyear2 = new javax.swing.JLabel();
         boxMonth2 = new javax.swing.JComboBox<>();
         lblmonth2 = new javax.swing.JLabel();
+        year1 = new javax.swing.JComboBox<>();
+        year2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,27 +188,27 @@ public class ReadEnt extends BaseDeDatos {
         lblyear1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblyear1.setText("Año");
 
-        year1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
         vs.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         vs.setText("VS");
 
         boxMonth1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        boxMonth1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        boxMonth1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" }));
 
         lblmonth1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblmonth1.setText("Mes");
-
-        year2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         lblyear2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblyear2.setText("Año");
 
         boxMonth2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        boxMonth2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        boxMonth2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" }));
 
         lblmonth2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblmonth2.setText("Mes");
+
+        year1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+
+        year2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,36 +217,23 @@ public class ReadEnt extends BaseDeDatos {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(lblyear1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblmonth1)
-                        .addGap(69, 69, 69))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(lblyear2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblmonth2)
-                        .addGap(66, 66, 66))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(boxMonth2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(year1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(boxMonth1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(38, 38, 38))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(bEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bTabla)
-                        .addGap(18, 18, 18)
-                        .addComponent(bGraficar)
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(bEliminar)
+                                .addGap(18, 18, 18)
+                                .addComponent(bTabla)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bGraficar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(year1, 0, 111, Short.MAX_VALUE)
+                                    .addComponent(year2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(107, 107, 107)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(boxMonth2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(boxMonth1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(53, 53, 53)
                                 .addComponent(jLabel2))
@@ -248,11 +261,20 @@ public class ReadEnt extends BaseDeDatos {
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(9, 9, 9)
-                                        .addComponent(vs))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(year2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                        .addComponent(vs)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(lblyear2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblmonth2)
+                        .addGap(60, 60, 60))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(lblyear1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblmonth1)
+                        .addGap(63, 63, 63)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -293,9 +315,9 @@ public class ReadEnt extends BaseDeDatos {
                             .addComponent(lblyear1)
                             .addComponent(lblmonth1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(year1)
-                            .addComponent(boxMonth1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(boxMonth1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(year1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(9, 9, 9)
                         .addComponent(vs)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -304,8 +326,8 @@ public class ReadEnt extends BaseDeDatos {
                             .addComponent(lblmonth2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(year2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(boxMonth2))
+                            .addComponent(boxMonth2)
+                            .addComponent(year2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bTabla)
@@ -318,50 +340,231 @@ public class ReadEnt extends BaseDeDatos {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
-        // eliminar según la consulta
+
     }//GEN-LAST:event_bEliminarActionPerformed
 
     private void bTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTablaActionPerformed
-       Tabla tabla = new Tabla(); // se le envia el set de datos tabular
-       tabla.setVisible(true);
+        Tabla tabla = new Tabla(); // se le envia el set de datos tabular
+        tabla.setVisible(true);
     }//GEN-LAST:event_bTablaActionPerformed
 
     private void bGraficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGraficarActionPerformed
-        // Grafica con ayuda de JFreeCharp
+        try{
+            if (energy.isSelected()) {
+                if(list.getSelectedValuesList().isEmpty()) JOptionPane.showMessageDialog(null,
+                                                           "Debe elegir los datos que desea graficar.",
+                                                           "Error Message",
+                                                           JOptionPane.ERROR_MESSAGE);
+                else {
+                                        
+                    String consulta = list.getSelectedValue();
+                    System.out.println(consulta);
+                    if(consulta.equals("Consumo por mes")){
+                        ResultSet x = this.peticion("select consultEnergyCMonth('" + (String)boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultEnergyCMonth('" + (String)boxMonth2.getSelectedItem() + "')");
+                        System.out.println("select consultEnergyCMonth('" + (String)boxMonth2.getSelectedItem() + "')");
+                        System.out.println("select consultEnergyCMonth('" + (String)boxMonth1.getSelectedItem() + "')");
+                        DefaultCategoryDataset dc = new DefaultCategoryDataset();
+                        
+                        while(x.next() && y.next()){
+                            dc.setValue(x.getDouble(1), "Mes", (String)boxMonth1.getSelectedItem());
+                            dc.setValue(y.getDouble(1), "Mes", (String)boxMonth2.getSelectedItem());
+                        }
+                        
+                        JFreeChart c = ChartFactory.createBarChart("Consumo por mes", "Costo", "Mes", dc, PlotOrientation.VERTICAL, false, true, false);
+                        CategoryPlot cp = c.getCategoryPlot();
+                        cp.setRangeGridlinePaint(Color.BLACK);
+                        ChartFrame cf = new ChartFrame("BarChar para consumo", c);
+                        cf.setVisible(true);
+                        cf.setSize(450, 350);
+                    }
+                    
+                    if(consulta.equals("Consumo (KWH)")) {
+                        ResultSet x = this.peticion("select consultEnergConsumptio('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultEnergConsumptio('" + boxMonth2.getSelectedItem() + "')"); 
+                    }
+                    
+                    if(consulta.equals("Costo unitario")){
+                        ResultSet x = this.peticion("select consultEnergyUcost('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultEnergyUCost('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                    
+                    if(consulta.equals("Beneficio")){
+                        ResultSet x = this.peticion("select consultEnergyBenefit('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultEnergyBenefit('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                }
+                
+            } else if(aqueduct.isSelected()){
+                if(list.getSelectedValuesList().isEmpty()) JOptionPane.showMessageDialog(null,
+                                                           "Debe elegir los datos que desea graficar.",
+                                                           "Error Message",
+                                                           JOptionPane.ERROR_MESSAGE);
+                else {
+                    String consulta = list.getSelectedValue();
+                    
+                    if(consulta.equals("Costo por mes")){
+                        ResultSet x = this.peticion("select consultAqueductCMonth('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultAqueductCMonth('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                    
+                    if(consulta.equals("Consumo (M3)")) {
+                        ResultSet x = this.peticion("select consultAqueductConsumption('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultAqueductConsumption('" + boxMonth2.getSelectedItem() + "')"); 
+                    }
+                    
+                    if(consulta.equals("Costo unitario")){
+                        ResultSet x = this.peticion("select consultAqueductUcost('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultAqueductUCost('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                    
+                    if(consulta.equals("Beneficio")){
+                        ResultSet x = this.peticion("select consultAqueductBenefit('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultAqueductBenefit('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                }
+                
+            } else if(sewerage.isSelected()){
+                if(list.getSelectedValuesList().isEmpty()) JOptionPane.showMessageDialog(null,
+                                "Debe elegir los datos que desea graficar.",
+                                "Error Message",
+                                JOptionPane.ERROR_MESSAGE);
+                else {
+                    String consulta = list.getSelectedValue();
+                    
+                    if(consulta.equals("Consumo por mes")){
+                        ResultSet x = this.peticion("select consultSewerageCMonth('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultSewerageCMonth('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                    
+                    if(consulta.equals("Consumo (M3)")) {
+                        ResultSet x = this.peticion("select consultSewerageConsumption('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultSewerageConsumption('" + boxMonth2.getSelectedItem() + "')"); 
+                    }
+                    
+                    if(consulta.equals("Costo unitario")){
+                        ResultSet x = this.peticion("select consultSewerageUcost('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultSewerageUCost('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                    
+                    if(consulta.equals("Beneficio")){
+                        ResultSet x = this.peticion("select consultSewerageBenefit('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultSewerageBenefit('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                }
+            
+            } else if(gas.isSelected()){
+                if(list.getSelectedValuesList().isEmpty()) JOptionPane.showMessageDialog(null,
+                                "Debe elegir los datos que desea graficar.",
+                                "Error Message",
+                                JOptionPane.ERROR_MESSAGE);
+                else {
+                    String consulta = list.getSelectedValue();
+                    
+                    if(consulta.equals("Consumo por mes")){
+                        ResultSet x = this.peticion("select consultGasCMonth('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultGasCMonth('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                    
+                    if(consulta.equals("Consumo (M3)")) {
+                        ResultSet x = this.peticion("select consultGasConsumption('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultGasConsumption('" + boxMonth2.getSelectedItem() + "')"); 
+                    }
+                    
+                    if(consulta.equals("Costo unitario")){
+                        ResultSet x = this.peticion("select consultGasUcost('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultGasUCost('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                    
+                    if(consulta.equals("Beneficio")){
+                        ResultSet x = this.peticion("select consultGasBenefit('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultGasBenefit('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                    
+                    if(consulta.equals("Diferencia (M3)")){
+                        ResultSet x = this.peticion("select consultGasDiference('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultGasDiference('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                    
+                    if(consulta.equals("Equivalencia (KWH)")){
+                        ResultSet x = this.peticion("select consultGasEquivalence('" + boxMonth1.getSelectedItem() + "')");
+                        ResultSet y = this.peticion("select consultGasEquivalence('" + boxMonth2.getSelectedItem() + "')");
+                    }
+                } 
+            
+            } else if(internet.isSelected()){
+                if(list.getSelectedValuesList().isEmpty()) JOptionPane.showMessageDialog(null,
+                                                           "Debe elegir los datos que desea graficar.",
+                                                           "Error Message",
+                                                           JOptionPane.ERROR_MESSAGE);
+                else {
+                    ResultSet x = this.peticion("select consultInternet(" + boxMonth1.getSelectedItem() + "')");
+                    ResultSet y = this.peticion("select consultInternet(" + boxMonth2.getSelectedItem() + "')");
+                }
+            
+            } else if(telephony.isSelected()){
+                if(list.getSelectedValuesList().isEmpty()) JOptionPane.showMessageDialog(null,
+                                                           "Debe elegir los datos que desea graficar.",
+                                                           "Error Message",
+                                                           JOptionPane.ERROR_MESSAGE);
+                else {
+                    ResultSet x = this.peticion("select consultTelephony(" + boxMonth1.getSelectedItem() + "')");
+                    ResultSet y = this.peticion("select consultTelephony(" + boxMonth2.getSelectedItem() + "')");
+                }
+                
+            } else if(tv.isSelected()){
+                if(list.getSelectedValuesList().isEmpty()) JOptionPane.showMessageDialog(null,
+                                                           "Debe elegir los datos que desea graficar.",
+                                                           "Error Message",
+                                                           JOptionPane.ERROR_MESSAGE);
+                else {
+                    ResultSet x = this.peticion("select consultTV(" + boxMonth1.getSelectedItem() + "')");
+                    ResultSet y = this.peticion("select consultTV(" + boxMonth2.getSelectedItem() + "')");                }
+                
+            } else {
+                JOptionPane.showMessageDialog(null,
+                                              "Debe elegir los datos que desea graficar.",
+                                              "Error Message",
+                                              JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } catch (SQLException e) {
+            
+        }
     }//GEN-LAST:event_bGraficarActionPerformed
 
     private void energyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_energyActionPerformed
-        if(energy.isSelected()) {
+        if (energy.isSelected()) {
             aqueduct.setEnabled(false);
             sewerage.setEnabled(false);
             gas.setEnabled(false);
             telephony.setEnabled(false);
             tv.setEnabled(false);
             internet.setEnabled(false);
-            String[] es = {"Costo por mes", "Consumo (KHW)", "Costo unitario", "Beneficio", "Otra mierda", "Otra mierda", "Otra mierda"};
+            String[] es = {"Costo por mes", "Consumo (KHW)", "Costo unitario", "Beneficio", "Costo unitario"};
             list.setListData(es);
             setEnableT();
         } else {
-           aqueduct.setEnabled(true);
+            aqueduct.setEnabled(true);
             sewerage.setEnabled(true);
             gas.setEnabled(true);
             telephony.setEnabled(true);
             tv.setEnabled(true);
-            internet.setEnabled(true); 
+            internet.setEnabled(true);
             clearList();
             setEnable();
         }
     }//GEN-LAST:event_energyActionPerformed
 
     private void aqueductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aqueductActionPerformed
-        if(aqueduct.isSelected()) {
+        if (aqueduct.isSelected()) {
             sewerage.setEnabled(false);
             gas.setEnabled(false);
             telephony.setEnabled(false);
             tv.setEnabled(false);
             internet.setEnabled(false);
             energy.setEnabled(false);
-            String[] es = {"Costo por mes", "Consumo (M3)", "Costo unitario", "Beneficio", "Otra mierda", "Otra mierda", "Otra mierda"};
+            String[] es = {"Costo por mes", "Consumo (M3)", "Costo unitario", "Beneficio"};
             list.setListData(es);
             setEnableT();
         } else {
@@ -377,14 +580,14 @@ public class ReadEnt extends BaseDeDatos {
     }//GEN-LAST:event_aqueductActionPerformed
 
     private void sewerageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sewerageActionPerformed
-        if(sewerage.isSelected()) {
+        if (sewerage.isSelected()) {
             gas.setEnabled(false);
             telephony.setEnabled(false);
             tv.setEnabled(false);
             internet.setEnabled(false);
             energy.setEnabled(false);
             aqueduct.setEnabled(false);
-            String[] es = {"Costo por mes", "Consumo (M3)", "Costo unitario", "Beneficio", "Otra mierda", "Otra mierda", "Otra mierda"};
+            String[] es = {"Costo por mes", "Consumo (M3)", "Costo unitario", "Beneficio"};
             list.setListData(es);
             setEnableT();
         } else {
@@ -400,14 +603,14 @@ public class ReadEnt extends BaseDeDatos {
     }//GEN-LAST:event_sewerageActionPerformed
 
     private void gasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gasActionPerformed
-        if(gas.isSelected()) {
+        if (gas.isSelected()) {
             telephony.setEnabled(false);
             tv.setEnabled(false);
             internet.setEnabled(false);
             energy.setEnabled(false);
             aqueduct.setEnabled(false);
             sewerage.setEnabled(false);
-            String[] es = {"Costo por mes", "Consumo (M3)", "Costo unitario", "Beneficio", "Diferencia (M3)", "Equivalencia (KHW)", "Otra mierda"};
+            String[] es = {"Costo por mes", "Consumo (M3)", "Costo unitario", "Beneficio", "Diferencia (M3)", "Equivalencia (KHW)"};
             list.setListData(es);
             setEnableT();
         } else {
@@ -423,14 +626,14 @@ public class ReadEnt extends BaseDeDatos {
     }//GEN-LAST:event_gasActionPerformed
 
     private void tvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tvActionPerformed
-        if(tv.isSelected()) {
+        if (tv.isSelected()) {
             internet.setEnabled(false);
             energy.setEnabled(false);
             aqueduct.setEnabled(false);
             sewerage.setEnabled(false);
             gas.setEnabled(false);
             telephony.setEnabled(false);
-            String[] es = {"Costo por mes", "Canales"};
+            String[] es = {"Costo por mes"};
             list.setListData(es);
             setEnableT();
         } else {
@@ -446,74 +649,74 @@ public class ReadEnt extends BaseDeDatos {
     }//GEN-LAST:event_tvActionPerformed
 
     private void internetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_internetActionPerformed
-        if(internet.isSelected()) {
+        if (internet.isSelected()) {
             energy.setEnabled(false);
             aqueduct.setEnabled(false);
             sewerage.setEnabled(false);
             gas.setEnabled(false);
             telephony.setEnabled(false);
             tv.setEnabled(false);
-            String[] es = {"Costo por mes", "Velocidad (MBS)"};
+            String[] es = {"Costo por mes"};
             list.setListData(es);
             setEnableT();
         } else {
-           energy.setEnabled(true);
+            energy.setEnabled(true);
             aqueduct.setEnabled(true);
             sewerage.setEnabled(true);
             gas.setEnabled(true);
             telephony.setEnabled(true);
-            tv.setEnabled(true); 
+            tv.setEnabled(true);
             clearList();
             setEnable();
         }
     }//GEN-LAST:event_internetActionPerformed
 
     private void telephonyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telephonyActionPerformed
-        if(telephony.isSelected()) {
+        if (telephony.isSelected()) {
             tv.setEnabled(false);
             internet.setEnabled(false);
             energy.setEnabled(false);
             aqueduct.setEnabled(false);
             sewerage.setEnabled(false);
             gas.setEnabled(false);
-            String[] es = {"Costo por mes", "Minutos"};
+            String[] es = {"Costo por mes"};
             list.setListData(es);
             setEnableT();
         } else {
-           tv.setEnabled(true);
+            tv.setEnabled(true);
             internet.setEnabled(true);
             energy.setEnabled(true);
             aqueduct.setEnabled(true);
             sewerage.setEnabled(true);
-            gas.setEnabled(true); 
+            gas.setEnabled(true);
             clearList();
             setEnable();
         }
     }//GEN-LAST:event_telephonyActionPerformed
-    
+
     public void clearList() {
         String[] es = {};
         list.setListData(es);
     }
-    
+
     public void setEnable() {
         year1.setEnabled(false);
         year2.setEnabled(false);
         boxMonth1.setEnabled(false);
         boxMonth2.setEnabled(false);
     }
-    
+
     public void setEnableT() {
         year1.setEnabled(true);
         year2.setEnabled(true);
         boxMonth1.setEnabled(true);
         boxMonth2.setEnabled(true);
     }
-    
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws UnsupportedLookAndFeelException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -531,8 +734,6 @@ public class ReadEnt extends BaseDeDatos {
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(ReadEnt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReadEnt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ReadEnt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -568,7 +769,7 @@ public class ReadEnt extends BaseDeDatos {
     private javax.swing.JRadioButton telephony;
     private javax.swing.JRadioButton tv;
     private javax.swing.JLabel vs;
-    private javax.swing.JTextField year1;
-    private javax.swing.JTextField year2;
+    private javax.swing.JComboBox<Integer> year1;
+    private javax.swing.JComboBox<Integer> year2;
     // End of variables declaration//GEN-END:variables
 }

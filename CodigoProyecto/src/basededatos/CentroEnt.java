@@ -21,7 +21,6 @@ public class CentroEnt extends BaseDeDatos {
         initComponents();
         auxTitle = aux;
         setTitleX();
-        this.setActualEnterprise(Integer.valueOf(aux));
     }
 
     /**
