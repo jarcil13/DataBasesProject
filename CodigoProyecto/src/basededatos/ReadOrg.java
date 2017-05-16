@@ -6,6 +6,7 @@
 package basededatos;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -60,7 +61,6 @@ public class ReadOrg extends BaseDeDatos {
         jLabel3 = new javax.swing.JLabel();
         tv = new javax.swing.JRadioButton();
         telephony = new javax.swing.JRadioButton();
-        bTabla = new javax.swing.JButton();
         bEliminar = new javax.swing.JButton();
         bGraficar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -139,14 +139,6 @@ public class ReadOrg extends BaseDeDatos {
             }
         });
 
-        bTabla.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        bTabla.setText("Tabla");
-        bTabla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bTablaActionPerformed(evt);
-            }
-        });
-
         bEliminar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         bEliminar.setText("Eliminar");
         bEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -197,16 +189,6 @@ public class ReadOrg extends BaseDeDatos {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(411, 411, 411))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addComponent(bTabla)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -220,7 +202,9 @@ public class ReadOrg extends BaseDeDatos {
                             .addComponent(telephony)
                             .addComponent(year1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(year2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bEliminar)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(bEliminar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addComponent(lblyear2)))
@@ -230,9 +214,6 @@ public class ReadOrg extends BaseDeDatos {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(boxMonth1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bGraficar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +226,11 @@ public class ReadOrg extends BaseDeDatos {
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addComponent(vs)
                                                 .addGap(163, 163, 163)))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bGraficar)
+                                .addGap(11, 11, 11)))
                         .addGap(465, 465, 465))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblmonth2)
@@ -256,18 +241,25 @@ public class ReadOrg extends BaseDeDatos {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblmonth1)
                 .addGap(525, 525, 525))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(350, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addGap(299, 299, 299)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(411, 411, 411))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -307,23 +299,12 @@ public class ReadOrg extends BaseDeDatos {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bGraficar)
-                    .addComponent(bTabla)
                     .addComponent(bEliminar))
-                .addContainerGap(28, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(5, 5, 5)
-                    .addComponent(jLabel3)
-                    .addContainerGap(554, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pack();
+        setBounds(0, 0, 408, 623);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTablaActionPerformed
-        Tabla tabla = new Tabla(); // se le envia el set de datos tabular
-        tabla.setVisible(true);
-    }//GEN-LAST:event_bTablaActionPerformed
 
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
         JOptionPane.showMessageDialog(null,
@@ -1002,7 +983,6 @@ public class ReadOrg extends BaseDeDatos {
     private javax.swing.JRadioButton aqueduct;
     private javax.swing.JButton bEliminar;
     private javax.swing.JButton bGraficar;
-    private javax.swing.JButton bTabla;
     private javax.swing.JComboBox<String> boxMonth1;
     private javax.swing.JComboBox<String> boxMonth2;
     private javax.swing.JRadioButton energy;
