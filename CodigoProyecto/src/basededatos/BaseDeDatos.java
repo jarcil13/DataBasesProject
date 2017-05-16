@@ -28,7 +28,7 @@ public class BaseDeDatos extends JFrame {
              Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
          }
          try {
-             con = (Connection) DriverManager.getConnection(sURL,"root","WMac2010*");
+             con = (Connection) DriverManager.getConnection(sURL,"root","chana1234");
          } catch (SQLException ex) {
              Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
          }
