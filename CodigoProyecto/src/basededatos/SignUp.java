@@ -233,9 +233,14 @@ public class SignUp extends BaseDeDatos {
         } catch(SQLException e) {
             System.out.println("Error en la ejecución:" 
             + e.getErrorCode() + " " + e.getMessage());
-            if(e.getMessage().equals("Duplicate entry '1' for key 'PRIMARY'")) {
+            if(e.getErrorCode() == 1062) {
                 JOptionPane.showMessageDialog(null,
                     "Usted ya está registrado en el sistema",
+                    "",
+                    JOptionPane.ERROR_MESSAGE);
+            } else if(e.getErrorCode() == 1292){
+                JOptionPane.showMessageDialog(null,
+                    "Ingrese una fecha con el formato especificado",
                     "",
                     JOptionPane.ERROR_MESSAGE);
             }
