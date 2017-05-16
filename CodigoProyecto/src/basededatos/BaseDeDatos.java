@@ -18,7 +18,7 @@ import javax.swing.JFrame;
  * @author María Arango
  */
 public class BaseDeDatos extends JFrame {
-     private Connection con;
+     protected Connection con;
     //implementar conexion a mysql
     public BaseDeDatos() {
         String sURL = "jdbc:mysql://localhost:3306/proyecto";
@@ -28,7 +28,7 @@ public class BaseDeDatos extends JFrame {
              Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
          }
          try {
-             con = (Connection) DriverManager.getConnection(sURL,"root","chana1234");
+             con = (Connection) DriverManager.getConnection(sURL,"root","WMac2010*");
          } catch (SQLException ex) {
              Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
          }
@@ -62,6 +62,10 @@ public class BaseDeDatos extends JFrame {
             }
         }        
         return con.prepareStatement("INSERT INTO " +tabla + " VALUES(" + consulta+")").execute();
+    }
+    
+    public Connection getConnection(){
+        return this.con;
     }
     
   
