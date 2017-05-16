@@ -15,6 +15,10 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+drop database if exists proyecto;
+create database proyecto;
+use proyecto;
+
 --
 -- Table structure for table `Aqueduct`
 --
@@ -1020,5 +1024,21 @@ DELIMITER ;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- crecion de procedure
+delimiter //
+create procedure bill_deleting(out id_p varchar(30)) begin delete from Bill where Bill.id_payment = id_p; end; //
+-- creacion de trigger
+delimiter //
+CREATE TRIGGER DELETE_INDUCTION_Bill BEFORE DELETE ON Bill FOR EACH ROW
+BEGIN
+delete from Telephony where OLD.Telephony_id_telephony = Telephony.id_telephony;
+delete from Internet where OLD.Internet_id_internet = Internet.id_internet;
+delete from Television where OLD.Television_id_tv = Television.id_tv;
+delete from Energy where OLD.Energy_id_energy = Energy.id_energy;
+delete from Aqueduct where OLD.Aqueduct_id_aqueduct = Aqueduct.id_aqueduct;
+delete from Sewerage where OLD.Sewerage_id_sewerage = Sewerage.id_sewerage;
+delete from Gas where OLD.Gas_id_gas = gas.id_gas;
+END; //
 
 -- Dump completed on 2017-05-14 20:36:34
